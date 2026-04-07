@@ -1,0 +1,9 @@
+# @package __global__
+
+data:
+  motion_loader:
+    _target_: src.data.motion_lmdb.LmdbMotionLoader
+    base_dir: datasets/motions/lmdb--bobsl3dt # TODO
+    nfeats: 274
+    fps: 25.0
+    disable: False

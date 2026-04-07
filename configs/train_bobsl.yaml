@@ -1,0 +1,44 @@
+ckpt: last
+
+motion_features: ${hydra:runtime.choices.motion_loader}
+text_features: ${hydra:runtime.choices.text_encoder}
+
+run_name: ??
+run_dir: outputs/${run_name}
+resume_dir: null
+
+train_split: "train"
+val_split: "val"
+
+dataloader:
+  _target_: torch.utils.data.DataLoader
+  batch_size: 128
+  num_workers: 10
+
+dataset: bobsl3dt # TODO
+
+trainer:
+  logger:
+    _target_: pytorch_lightning.loggers.WandbLogger
+    project: Bobsl
+    name: ${run_name}
+    log_model: False
+    save_dir: ${run_dir}
+    offline: True
+    id: "run1"
+    resume: "allow"
+
+defaults:
+  - text_encoder: clip
+  - motion_loader: bobsl_lmdb # TODO
+  - mdm
+  - trainer
+  - defaults
+  - _self_
+  - experiment: null
+
+# Make it fail if it try to load a text model at train time
+# as all the text embeddings should already be precomputed
+data:
+  text_encoder:
+    no_model: True

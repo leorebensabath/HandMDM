@@ -1,0 +1,8 @@
+# @package __global__
+
+run_name: mdm_bobsl3dt
+resume_dir: ${run_dir}
+
+defaults:
+  - _base_bobsl
+  - _self_

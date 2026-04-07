@@ -1,7 +1,6 @@
 <div align="center">
 
-# TMR++
-## A Cross-Dataset Study for Text-based 3D Human Motion Retrieval
+# Text-Driven 3D Hand Motion Generation from Sign Language Data
 
 <a href=""><strong>Léore Bensabath</strong></a>
 ·

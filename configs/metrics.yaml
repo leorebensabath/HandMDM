@@ -1,0 +1,42 @@
+defaults:
+  - defaults
+  - motion_loader: bobsl_lmdb
+  - text_encoder: clip
+  - mdm
+  - _self_
+
+run_dir: outputs/bobsl_gloss_description
+tmr_run_dir: outputs/tmr_bobsl3dt
+
+dataset: bobsl3dt_test_manually_cleaned_phon_ms
+tmr_dataset: ${dataset}
+
+batch_size: 512
+split: test_unseen
+guidance: 15
+
+ckpt: last
+tmr_ckpt: last
+device: cuda
+
+retrieval_dataset_name: null
+
+save_folder_name: null
+
+render: True
+render_max: null
+overwrite_rendering: False
+render_retrieved: False
+with_mano: False
+motion_train_gt_folder: bobsl_w_mano_6d
+motion_test_gt_folder: bobsl_words_manually_aligned
+
+seed: null
+
+fixed_length: null
+
+save_metrics: True
+
+thresh: 0.95
+
+protocol_name: metrics

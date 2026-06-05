@@ -15,7 +15,7 @@ dataloader:
   batch_size: 128
   num_workers: 10
 
-dataset: bobsl3dt # TODO
+dataset: bobsl3dt
 
 trainer:
   logger:
@@ -30,12 +30,19 @@ trainer:
 
 defaults:
   - text_encoder: clip
-  - motion_loader: bobsl_lmdb # TODO
+  - motion_loader: bobsl_lmdb
   - mdm
   - trainer
   - defaults
   - _self_
   - experiment: null
+
+hydra:
+  run:
+    dir: ${run_dir}
+  output_subdir: null
+  job:
+    chdir: false
 
 # Make it fail if it try to load a text model at train time
 # as all the text embeddings should already be precomputed

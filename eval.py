@@ -179,7 +179,7 @@ def compute_features(diffusion, retrieval_model, dataset, tmr_text_to_token_emb,
     return returned
 
 
-@hydra.main(config_path="configs", config_name="metrics", version_base='1.3') # TODO
+@hydra.main(config_path="configs", config_name="eval", version_base='1.3') # TODO
 def metrics(newcfg: DictConfig) -> None:
     device = newcfg.device
     run_dir = newcfg.run_dir
@@ -251,7 +251,7 @@ def metrics(newcfg: DictConfig) -> None:
     
     dataset_camel = newcfg.dataset.split("_")
     dataset_camel = dataset_camel[0] + "".join([elt.capitalize() for elt in dataset_camel[1:]])
-    tmr_run_dir_camel = "_".join(tmr_run_dir.split("outputs/")[1].split("/")).split('_')
+    tmr_run_dir_camel = "_".join(tmr_run_dir.split("models/")[1].split("/")).split('_')
     tmr_run_dir_camel = tmr_run_dir_camel[0] + "".join([elt.capitalize() for elt in tmr_run_dir_camel[1:]])
     tmr_run_dir_camel = f"{tmr_run_dir_camel}_epoch{tmr_epoch}"
 
@@ -397,7 +397,7 @@ def metrics(newcfg: DictConfig) -> None:
             for i in range(len(keyids))
         }
         
-        generation_folder_path = os.path.join(run_dir.replace("outputs/", "rendering_inference/"), dataset_camel, split, f"guidance{guidance}_epoch{epoch}_seed{seed}")
+        generation_folder_path = os.path.join(run_dir, "eval_generations", dataset_camel, split, f"guidance{guidance}_epoch{epoch}_seed{seed}")
         rendering_folder_path = os.path.join(generation_folder_path, "renderings")
         mesh_folder_path = os.path.join(generation_folder_path, "meshes")
         os.makedirs(mesh_folder_path, exist_ok=True)

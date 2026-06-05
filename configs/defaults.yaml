@@ -4,7 +4,10 @@ run_dir: logs
 
 hydra:
   run:
-    dir: ${run_dir}
+    dir: .
+  output_subdir: null
+  job:
+    chdir: false
 
 seed: 1234
 logger_level: INFO

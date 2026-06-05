@@ -1,4 +1,5 @@
 import logging
+import os
 import tqdm
 
 
@@ -14,3 +15,11 @@ class TqdmLoggingHandler(logging.Handler):
             self.flush()
         except Exception:
             self.handleError(record)
+
+
+class MkdirFileHandler(logging.FileHandler):
+    def __init__(self, filename, mode="a", encoding=None, delay=False):
+        log_dir = os.path.dirname(os.path.abspath(filename))
+        if log_dir:
+            os.makedirs(log_dir, exist_ok=True)
+        super().__init__(filename, mode, encoding, delay)

@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 @hydra.main(config_path="../configs", config_name="text_stats", version_base="1.3")
 def text_stats(cfg: DictConfig):
     logger.info("Computing text stats")
-    import src.prepare  # noqa
 
     train_dataset = instantiate(cfg.data, split="train")
 

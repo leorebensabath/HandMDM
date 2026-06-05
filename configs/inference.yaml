@@ -1,0 +1,11 @@
+checkpoint: models/mdm_bobsl3dt_phonology_hms/checkpoints/last.ckpt
+input_text: "The right hand, shaped as a fist with the thumb extended upwards, is positioned so the thumb tip touches the chin. The palm faces sideways"
+
+# Optional settings
+output_path: null  # defaults to <checkpoint_dir>/inference/<sanitized_text>_<length>.npy
+guidance: 15
+length: 15  # motion length in frames (25 fps)
+device: cuda
+seed: 1234
+render: true
+with_mano: false

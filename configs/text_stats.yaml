@@ -1,0 +1,38 @@
+defaults:
+  - text_encoder: clip
+  - motion_loader: bobsl_lmdb
+  - defaults
+  - _self_
+
+dataset: bobsl3dt
+
+data:
+  _target_: src.data.text_motion.TextMotionDataset
+
+  name: ${dataset}
+
+  min_seconds: 0.0
+  max_seconds: 10.0
+  preload: false
+  tiny: false
+  drop_cond: null
+
+  text_encoder:
+    no_model: True
+
+  motion_loader:
+    disable: True
+
+text_features: ${hydra:runtime.choices.text_encoder}
+
+motion_normalizer:
+  _target_: src.normalizer.Normalizer
+  base_dir: motion_stats/${data.name}
+  eps: 1e-12
+  disable: True
+
+text_normalizer:
+  _target_: src.normalizer.Normalizer
+  base_dir: text_stats/${data.name}/${text_features}
+  eps: 1e-12
+  disable: True

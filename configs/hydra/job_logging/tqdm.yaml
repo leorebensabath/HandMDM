@@ -22,7 +22,7 @@ handlers:
     class: src.tools.my_logging.TqdmLoggingHandler
     formatter: colorlog
   file_out:
-    class: logging.FileHandler
+    class: src.tools.my_logging.MkdirFileHandler
     formatter: simple
     filename: ${run_dir}/${hydra.job.name}.out
 

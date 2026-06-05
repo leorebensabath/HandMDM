@@ -17,6 +17,7 @@ class LmdbMotionLoader:
         self.umin = int(self.fps * umin_s)
         assert self.umin > 0
         self.umax = int(self.fps * umax_s)
+        self.lmdb_env = None
         self.lmdb_env = lmdb.open(
             self.base_dir, readonly=True, lock=False, max_readers=512
         )
@@ -24,6 +25,11 @@ class LmdbMotionLoader:
     def __call__(self, path, start, end):
         if self.disable:
             return {"x": path, "length": int(self.fps * (end - start))}
+       
+        if self.lmdb_env is None:
+            self.lmdb_env = lmdb.open(
+                self.base_dir, readonly=True, lock=False, max_readers=512
+            )
 
         begin = int(start * self.fps)
         end = int(end * self.fps)

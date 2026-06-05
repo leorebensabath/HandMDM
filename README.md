@@ -12,7 +12,7 @@
 
 </div>
 
-The code for the HandMDMD model and for the TMR model is largely inspired from the [STMC](https://github.com/nv-tlabs/stmc/tree/main) and [TMR](https://github.com/Mathux/TMR) repositories.  
+The code for the HandMDM model and for the TMR model is largely inspired from the [STMC](https://github.com/nv-tlabs/stmc/tree/main) and [TMR](https://github.com/Mathux/TMR) repositories.  
 
 ## Data and model
 

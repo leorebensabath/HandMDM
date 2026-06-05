@@ -176,7 +176,7 @@ If you use our code in your research, kindly cite our work:
 @inproceedings{bensabath2026handmdm,
   title={Text-Driven 3D Hand Motion Generation from Sign Language Data},
   author={Bensabath, Léore and Petrovich, Mathis and Varol, G{\"u}l},
-  journal={CVPR},
+  booktitle={CVPR},
   year={2026}
 }
 ```

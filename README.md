@@ -181,6 +181,3 @@ If you use our code in your research, kindly cite our work:
   year={2026}
 }
 ```
-
-TODO: prepare section for motion stats
-TODO: Add section to mention Mathis code bases and section for citation

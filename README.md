@@ -8,7 +8,7 @@
 ·
 <a href="https://imagine.enpc.fr/~varolg"><strong>G&#252;l Varol</strong></a>
 
-[![arXiv](https://img.shields.io/badge/arXiv-STMC-A10717.svg?logo=arXiv)](https://arxiv.org/abs/2508.15902)
+[![arXiv](https://img.shields.io/badge/arXiv-HandMDM-A10717.svg?logo=arXiv)](https://arxiv.org/abs/2508.15902)
 
 The code for the HandMDMD model and for the TMR model is largely inspired from the [STMC](https://github.com/nv-tlabs/stmc/tree/main) and [TMR](https://github.com/Mathux/TMR) repositories.  
 

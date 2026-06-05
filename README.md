@@ -9,6 +9,7 @@
 <a href="https://imagine.enpc.fr/~varolg"><strong>G&#252;l Varol</strong></a>
 
 [![arXiv](https://img.shields.io/badge/arXiv-HandMDM-A10717.svg?logo=arXiv)](https://arxiv.org/abs/2508.15902)
+[![Project Page](https://img.shields.io/badge/Project_Page-HandMDM-blue.svg?logo=globe)](https://imagine.enpc.fr/~leore.bensabath/HandMDM)
 
 </div>
 

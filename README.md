@@ -10,15 +10,17 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-HandMDM-A10717.svg?logo=arXiv)](https://arxiv.org/abs/2508.15902)
 
+</div>
+
 The code for the HandMDMD model and for the TMR model is largely inspired from the [STMC](https://github.com/nv-tlabs/stmc/tree/main) and [TMR](https://github.com/Mathux/TMR) repositories.  
 
 ## Data and model
 
 ### Model checkpoints
 
-Download the model checkpoints from the [models folder](https://drive.google.com/drive/u/1/folders/1GeCAgX-tPAC8J9loeEmDSjCwjMBTLCor) and place the `models` folder inside the HandMDM folder.
+Download the model checkpoints from the [models folder](https://drive.google.com/drive/u/1/folders/1GeCAgX-tPAC8J9loeEmDSjCwjMBTLCor) and place it inside the HandMDM folder.
 
-To evaluate the models using the retrieval metrics described in the paper, you also need to download the checkpoint for the THMR retrieval model. You can find them in the [THRM models folder](https://drive.google.com/drive/u/1/folders/1PbbCO57j0wJMfwgvdnWrGwaJpkNQETQC). Place this model folder inside `HandMDM/TMR`.
+To evaluate the models using the retrieval metrics described in the paper, you also need to download the checkpoint for the THMR retrieval model. You can find it in the [THMR models folder](https://drive.google.com/drive/u/1/folders/1PbbCO57j0wJMfwgvdnWrGwaJpkNQETQC). Place this model folder inside `HandMDM/TMR`.
 
 ### Data
 
@@ -34,13 +36,13 @@ python -m prepare.text_stats dataset=bobsl3dt
 
 You also need text and motion statistics data. They are available at the following locations:
 
-- Text stats: [here](https://drive.google.com/drive/u/1/folders/1pAkqK1QQX2JjxIelSVsmCvIFNpBcBzsC)
+- Text stats: [here](https://drive.google.com/drive/u/1/folders/1pAkqK1QQX2JjxIelSVsmCvIFNpBcBzsC).
 They have been generated with command:
 ```bash
 python -m prepare.text_stats dataset=bobsl3dt
 ```
 
-- Motion stats: [here](https://drive.google.com/drive/u/1/folders/1b0Q-Ljgjumdwr8g1zZEHecth0-yYRBvA)
+- Motion stats: [here](https://drive.google.com/drive/u/1/folders/1b0Q-Ljgjumdwr8g1zZEHecth0-yYRBvA).
 They have been generated with command:
 ```bash
 # TODO

@@ -1,8 +1,9 @@
 """
 This script computes the motion statistics for the BOBSL3DT dataset which is too large to fit in memory.
 """
-import logging
 import hydra
+import logging
+import torch
 from omegaconf import DictConfig
 from hydra.utils import instantiate
 from tqdm import tqdm
@@ -18,7 +19,6 @@ def motion_stats(cfg: DictConfig):
     logger.info("Computing motion stats")
 
     train_dataset = instantiate(cfg.data, split="train")
-    import torch
 
     mean = 0
     mean_square = 0

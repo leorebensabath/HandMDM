@@ -6,7 +6,7 @@ data:
   name: ${dataset}
   split: ???
   min_seconds: 0.0
-  max_seconds: 10.0
+  max_seconds: 3.0
   preload: false
   tiny: false
   # dropping data

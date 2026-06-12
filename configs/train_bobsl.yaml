@@ -20,7 +20,7 @@ dataset: bobsl3dt
 trainer:
   logger:
     _target_: pytorch_lightning.loggers.WandbLogger
-    project: Bobsl
+    project: HandMDM
     name: ${run_name}
     log_model: False
     save_dir: ${run_dir}

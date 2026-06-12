@@ -143,30 +143,6 @@ class TextMotionDataset(Dataset):
         }
         return output
     
-    """
-    def filter_annotations(self, annotations):
-        filtered_annotations = {}
-        for key, val in annotations.items():
-            path = val["path"]
-
-            # remove humanact12
-            # buggy left/right + no SMPL
-            if "humanact12" in path:
-                continue
-            
-            annots = val.pop("annotations")
-            filtered_annots = []
-            for annot in annots:
-                duration = annot["end"] - annot["start"]
-                if self.max_seconds >= duration >= self.min_seconds:
-                    filtered_annots.append(annot)
-
-            if filtered_annots:
-                val["annotations"] = filtered_annots
-                filtered_annotations[key] = val
-
-        return filtered_annotations
-    """
 
 def write_json(data, path):
     with open(path, "w") as ff:

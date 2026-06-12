@@ -46,7 +46,7 @@ python -m prepare.text_stats dataset=bobsl3dt
 - Motion stats: [here](https://drive.google.com/drive/u/1/folders/1b0Q-Ljgjumdwr8g1zZEHecth0-yYRBvA).
 They have been generated with command:
 ```bash
-# TODO
+python -m prepare.motion_stats dataset=bobsl3dt
 ```
 
 

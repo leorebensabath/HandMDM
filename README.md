@@ -59,8 +59,8 @@ In the meantime, you can sign and send the agreement form following instructions
 For use with this repo, the BOBSL motion data are stored within a lmdb database. Specifically, for each frame, the motion features are stored under the following format:
 - `key`: <episode_name>/<frame_idx:07d>.np (indexing starts at 1 in the lmdb)
 - `value`: Motion features of size 274, extracted from the SMPL-X motion representation, in 6D rotation format, decomposed as follows: 
-  - {'upper body pose': (0, 78), 'left hand pose': (78, 168), 'right hand pose': (168, 258), 'jaw pose': (258, 264), 'expression': (264, 274)}
-  - The upper body joints are in this order: "spine1", "spine2", "spine3", "neck", "left_collar", "right_collar", "head", "left_shoulder", "right_shoulder", "left_elbow", "right_elbow", "left_wrist", "right_wrist" (13 joints -> 13 x 6 = 78 motion features)
+  - {`upper body pose`: (0, 78), `left hand pose`: (78, 168), `right hand pose`: (168, 258), `jaw pose`: (258, 264), `expression`: (264, 274)}
+  - The upper body joints are in this order: `spine1, spine2, spine3, neck, left_collar, right_collar, head, left_shoulder, right_shoulder, left_elbow, right_elbow, left_wrist, right_wrist` (13 joints -> 13 x 6 = 78 motion features)
 
 We also provide the full SMPL-X features, saved per episode as pickle files. 
 

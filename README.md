@@ -15,44 +15,8 @@
 
 The code for the HandMDM model and for the TMR model is largely inspired from the [STMC](https://github.com/nv-tlabs/stmc/tree/main) and [TMR](https://github.com/Mathux/TMR) repositories.  
 
-## Data and model
+## Installation :construction_worker:
 
-### Model checkpoints
-
-Download the model checkpoints from the [models folder](https://drive.google.com/drive/u/1/folders/1GeCAgX-tPAC8J9loeEmDSjCwjMBTLCor) and place it inside the HandMDM folder.
-
-To evaluate the models using the retrieval metrics described in the paper, you also need to download the checkpoint for the THMR retrieval model. You can find it in the [THMR models folder](https://drive.google.com/drive/u/1/folders/1PbbCO57j0wJMfwgvdnWrGwaJpkNQETQC). Place this model folder inside `HandMDM/TMR`.
-
-### Data
-
-The motion dataset is currently waiting for publication under the official BOBSL webpage, which requires signing the BBC BOBSL - Terms of Use agreement. 
-In the meantime, you can sign and send the agreement form following instructions at https://www.bbc.co.uk/rd/projects/extol-dataset. Then send me and email at leore.bensabath@enpc.fr with the countersigned agreement, and I will provide instructions to download the data. 
-
-The annotations are available in the [annotations folder](https://drive.google.com/drive/u/1/folders/1GEfr1UeiOnXZnr12PmUlbu_jAqass6Yz). Download the annotations folder and put it inside `HandMDM/datasets/`. 
-
-The text embeddings, already provided in the annotations folder, have been computed with command:
-```bash
-python -m prepare.text_stats dataset=bobsl3dt
-```
-
-You also need text and motion statistics data. They are available at the following locations:
-
-- Text stats: [here](https://drive.google.com/drive/u/1/folders/1pAkqK1QQX2JjxIelSVsmCvIFNpBcBzsC).
-They have been generated with command:
-```bash
-python -m prepare.text_stats dataset=bobsl3dt
-```
-
-- Motion stats: [here](https://drive.google.com/drive/u/1/folders/1b0Q-Ljgjumdwr8g1zZEHecth0-yYRBvA).
-They have been generated with command:
-```bash
-python -m prepare.motion_stats dataset=bobsl3dt
-```
-
-
-## HandMDM
-
-### Installation :construction_worker:
 Clone and set up the environment as follows:
 
 ```bash
@@ -76,6 +40,56 @@ python -m pip install -r requirements.txt
 ```
 
 You also need `ffmpeg` available if you want to generate motion videos.
+
+
+## Data and model
+
+### Model checkpoints
+
+Download the model checkpoints from the [models folder](https://drive.google.com/drive/u/1/folders/1GeCAgX-tPAC8J9loeEmDSjCwjMBTLCor) and place it inside the HandMDM folder.
+
+To evaluate the models using the retrieval metrics described in the paper, you also need to download the checkpoint for the THMR retrieval model. You can find it in the [THMR models folder](https://drive.google.com/drive/u/1/folders/1PbbCO57j0wJMfwgvdnWrGwaJpkNQETQC). Place this model folder inside `HandMDM/TMR`.
+
+### Data
+
+**Motion**
+The motion dataset is currently waiting for publication under the official BOBSL webpage, which requires signing the BBC BOBSL - Terms of Use agreement. 
+In the meantime, you can sign and send the agreement form following instructions at https://www.bbc.co.uk/rd/projects/extol-dataset. Then send me and email at leore.bensabath@enpc.fr with the countersigned agreement, and I will provide instructions to download the data. 
+
+For use with this repo, the BOBSL motion data are stored within a lmdb database. Specifically, for each frame, the motion features are stored under the following format:
+- `key`: <episode_name>/<frame_idx:07d>.np (indexing starts at 1 in the lmdb)
+- `value`: Motion features of size 274, extracted from the SMPL-X motion representation, in 6D rotation format, decomposed as follows: 
+  - {'upper body pose': (0, 78), 'left hand pose': (78, 168), 'right hand pose': (168, 258), 'jaw pose': (258, 264), 'expression': (264, 274)}
+  - The upper body joints are in this order: "spine1", "spine2", "spine3", "neck", "left_collar", "right_collar", "head", "left_shoulder", "right_shoulder", "left_elbow", "right_elbow", "left_wrist", "right_wrist" (13 joints -> 13 x 6 = 78 motion features)
+
+We also provide the full SMPL-X features, saved per episode as pickle files. 
+
+**Annotations**
+The annotations are available in the [annotations folder](https://drive.google.com/drive/u/1/folders/1GEfr1UeiOnXZnr12PmUlbu_jAqass6Yz). Download the annotations folder and put it inside `HandMDM/datasets/`. 
+
+The text embeddings, already provided in the annotations folder, have been computed with command:
+```bashpwd
+
+python -m prepare.text_stats dataset=bobsl3dt
+```
+
+**Statistics**
+You also need text and motion statistics data. They are available at the following locations:
+
+- Text stats: [here](https://drive.google.com/drive/u/1/folders/1pAkqK1QQX2JjxIelSVsmCvIFNpBcBzsC).
+They have been generated with command:
+```bash
+python -m prepare.text_stats dataset=bobsl3dt
+```
+
+- Motion stats: [here](https://drive.google.com/drive/u/1/folders/1b0Q-Ljgjumdwr8g1zZEHecth0-yYRBvA).
+They have been generated with command:
+```bash
+python -m prepare.motion_stats dataset=bobsl3dt
+```
+
+
+## HandMDM
 
 ### Inference
 

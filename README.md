@@ -54,7 +54,7 @@ To evaluate the models using the retrieval metrics described in the paper, you a
 
 **Motion**
 The motion dataset is currently waiting for publication under the official BOBSL webpage, which requires signing the BBC BOBSL - Terms of Use agreement. 
-In the meantime, you can sign and send the agreement form following instructions at https://www.bbc.co.uk/rd/projects/extol-dataset. Then send me and email at leore.bensabath@enpc.fr with the countersigned agreement, and I will provide instructions to download the data. 
+In the meantime, you can sign and send the agreement form, following the instructions at https://www.bbc.co.uk/rd/projects/extol-dataset. Then send me and email at leore.bensabath@enpc.fr with the countersigned agreement, and I will provide instructions to download the data. 
 
 For use with this repo, the BOBSL motion data are stored within a lmdb database. Specifically, for each frame, the motion features are stored under the following format:
 - `key`: <episode_name>/<frame_idx:07d>.np (indexing starts at 1 in the lmdb)
@@ -63,6 +63,10 @@ For use with this repo, the BOBSL motion data are stored within a lmdb database.
   - The upper body joints are in this order: `spine1, spine2, spine3, neck, left_collar, right_collar, head, left_shoulder, right_shoulder, left_elbow, right_elbow, left_wrist, right_wrist` (13 joints -> 13 x 6 = 78 motion features)
 
 We also provide the full SMPL-X features, saved per episode as pickle files. 
+
+⚠️ Warning: The provided motion files includes poses for every frames of the BOBSL videos, but only the poses from the frames that are actually part of the BOBSL3DT samples have been processed as described in the paper. For the other frames, that _are not part_ of our official dataset, please note 2 things:
+- Some frames in BOBSL episodes do not include any person, but our pose estimation pipeline relied on SMPLer-X which estimated a pose for every frame. So even empty frames includes an hallucinated pose. For our dataset samples, it has been checked that every video frame does include a signing person through automated person detection.
+- The light optimization we performed to stitch the hands from HAMER estimations and the body from SMPLer-X estimations at the wrist using HAMER wrist global orientation has _not_ been performed on the frames that aren't included in our BOBSL3DT dataset. The poses for these frames includes the body local rotations estimated from SMPLer-X, except for the wrist joint, which comes from converting HAMER wrist global orientation predictions directly to a local rotation (without optimisation on top); and the hand poses from HAMER.
 
 **Annotations**
 The annotations are available in the [annotations folder](https://drive.google.com/drive/u/1/folders/1GEfr1UeiOnXZnr12PmUlbu_jAqass6Yz). Download the annotations folder and put it inside `HandMDM/datasets/`. 

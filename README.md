@@ -13,7 +13,7 @@
 
 </div>
 
-The code for the HandMDM model and for the TMR model is largely inspired from the [STMC](https://github.com/nv-tlabs/stmc/tree/main) and [TMR](https://github.com/Mathux/TMR) repositories.  
+The code for the HandMDM model and for the TMR model is largely inspired by the [STMC](https://github.com/nv-tlabs/stmc/tree/main) and [TMR](https://github.com/Mathux/TMR) repositories.  
 
 ## Installation :construction_worker:
 
@@ -23,17 +23,17 @@ Clone and set up the environment as follows:
 git clone https://github.com/leorebensabath/HandMDM
 cd HandMDM/
 ```
-This code was tested with python 3.9.21, cuda 11.8 and pytorch "2.4.1+cu118".
+This code was tested with Python 3.9.21, CUDA 11.8 and PyTorch "2.4.1+cu118".
 
-Creation of the environnement:
+Creation of the environment:
 ```bash
-# create a virtual environnement (also works with conda)
+# create a virtual environment (also works with conda)
 python -m venv ~/.venv/handmdm
-# activate the virtual environnement
+# activate the virtual environment
 source ~/.venv/handmdm/bin/activate
 # upgrade pip
 python -m pip install --upgrade pip
-# Install pytorch
+# Install PyTorch
 pip install torch==2.4.1 torchvision==0.19.1 --index-url https://download.pytorch.org/whl/cu118
 # Install missing packages
 python -m pip install -r requirements.txt
@@ -46,7 +46,7 @@ You also need `ffmpeg` available if you want to generate motion videos.
 
 ### Model checkpoints
 
-Download the model checkpoints from the [models folder](https://drive.google.com/drive/u/1/folders/1GeCAgX-tPAC8J9loeEmDSjCwjMBTLCor) and place it inside the HandMDM folder.
+Download the model checkpoints from the [models folder](https://drive.google.com/drive/u/1/folders/1GeCAgX-tPAC8J9loeEmDSjCwjMBTLCor) and place them inside the HandMDM folder.
 
 To evaluate the models using the retrieval metrics described in the paper, you also need to download the checkpoint for the THMR retrieval model. You can find it in the [THMR models folder](https://drive.google.com/drive/u/1/folders/1PbbCO57j0wJMfwgvdnWrGwaJpkNQETQC). Place this model folder inside `HandMDM/TMR`.
 
@@ -54,26 +54,25 @@ To evaluate the models using the retrieval metrics described in the paper, you a
 
 **Motion**
 The motion dataset is currently waiting for publication under the official BOBSL webpage, which requires signing the BBC BOBSL - Terms of Use agreement. 
-In the meantime, you can sign and send the agreement form, following the instructions at https://www.bbc.co.uk/rd/projects/extol-dataset. Then send me and email at leore.bensabath@enpc.fr with the countersigned agreement, and I will provide instructions to download the data. 
+In the meantime, you can sign and send the agreement form, following the instructions at https://www.bbc.co.uk/rd/projects/extol-dataset. Then send me an email at leore.bensabath@enpc.fr with the countersigned agreement, and I will provide instructions to download the data. 
 
-For use with this repo, the BOBSL motion data are stored within a lmdb database. Specifically, for each frame, the motion features are stored under the following format:
-- `key`: <episode_name>/<frame_idx:07d>.np (indexing starts at 1 in the lmdb)
+For use with this repo, the BOBSL motion data are stored within an LMDB database. Specifically, for each frame, the motion features are stored in the following format:
+- `key`: <episode_name>/<frame_idx:07d>.np (indexing starts at 1 in the LMDB)
 - `value`: Motion features of size 274, extracted from the SMPL-X motion representation, in 6D rotation format, decomposed as follows: 
   - {`upper body pose`: (0, 78), `left hand pose`: (78, 168), `right hand pose`: (168, 258), `jaw pose`: (258, 264), `expression`: (264, 274)}
   - The upper body joints are in this order: `spine1, spine2, spine3, neck, left_collar, right_collar, head, left_shoulder, right_shoulder, left_elbow, right_elbow, left_wrist, right_wrist` (13 joints -> 13 x 6 = 78 motion features)
 
 We also provide the full SMPL-X features, saved per episode as pickle files. 
 
-⚠️ Warning: The provided motion files includes poses for every frames of the BOBSL videos, but only the poses from the frames that are actually part of the BOBSL3DT samples have been processed as described in the paper. For the other frames, that _are not part_ of our official dataset, please note 2 things:
-- Some frames in BOBSL episodes do not include any person, but our pose estimation pipeline relied on SMPLer-X which estimated a pose for every frame. So even empty frames includes an hallucinated pose. For our dataset samples, it has been checked that every video frame does include a signing person through automated person detection.
-- The light optimization we performed to stitch the hands from HAMER estimations and the body from SMPLer-X estimations at the wrist using HAMER wrist global orientation has _not_ been performed on the frames that aren't included in our BOBSL3DT dataset. The poses for these frames includes the body local rotations estimated from SMPLer-X, except for the wrist joint, which comes from converting HAMER wrist global orientation predictions directly to a local rotation (without optimisation on top); and the hand poses from HAMER.
+⚠️ Warning: The provided motion files include poses for every frame of the BOBSL videos, but only the poses from the frames that are actually part of the BOBSL3DT samples have been processed as described in the paper. For the other frames that _are not part_ of our official dataset, please note two things:
+- Some frames in BOBSL episodes do not include any person, but our pose estimation pipeline relied on SMPLer-X, which estimated a pose for every frame. So even empty frames include a hallucinated pose. For our dataset samples, it has been checked that every video frame does include a signing person through automated person detection.
+- The light optimization we performed to stitch the hands from HAMER estimations and the body from SMPLer-X estimations at the wrist using HAMER wrist global orientation has _not_ been performed on the frames that are not included in our BOBSL3DT dataset. The poses for these frames include the body local rotations estimated from SMPLer-X, except for the wrist joint, which comes from converting HAMER wrist global orientation predictions directly to a local rotation (without optimisation on top), and the hand poses from HAMER.
 
 **Annotations**
 The annotations are available in the [annotations folder](https://drive.google.com/drive/u/1/folders/1GEfr1UeiOnXZnr12PmUlbu_jAqass6Yz). Download the annotations folder and put it inside `HandMDM/datasets/`. 
 
-The text embeddings, already provided in the annotations folder, have been computed with command:
-```bashpwd
-
+The text embeddings, already provided in the annotations folder, have been computed with the command:
+```bash
 python -m prepare.text_stats dataset=bobsl3dt
 ```
 
@@ -81,13 +80,13 @@ python -m prepare.text_stats dataset=bobsl3dt
 You also need text and motion statistics data. They are available at the following locations:
 
 - Text stats: [here](https://drive.google.com/drive/u/1/folders/1pAkqK1QQX2JjxIelSVsmCvIFNpBcBzsC).
-They have been generated with command:
+They have been generated with the command:
 ```bash
 python -m prepare.text_stats dataset=bobsl3dt
 ```
 
 - Motion stats: [here](https://drive.google.com/drive/u/1/folders/1b0Q-Ljgjumdwr8g1zZEHecth0-yYRBvA).
-They have been generated with command:
+They have been generated with the command:
 ```bash
 python -m prepare.motion_stats dataset=bobsl3dt
 ```
@@ -170,7 +169,7 @@ python -u train.py --config-name=train_bobsl experiment=bobsl3dt train_split=tra
 **What the command does**
 
 - `experiment=bobsl3dt` — loads the BOBSL training recipe (274-dim motions, `drop_cond=0.05`, motion stats path, etc.)
-- `val_split=null` — disables validation (validation is skipped when train and val splits are the same) - there is no validation set released for the BOBSL3DT dataset.
+- `val_split=null` — disables validation (validation is skipped when train and val splits are the same); there is no validation set released for the BOBSL3DT dataset.
 - Other defaults (batch size, learning rate, checkpoints) are in `configs/train_bobsl.yaml` and `configs/trainer.yaml`
 
 **Where outputs are saved**
@@ -189,7 +188,7 @@ Use `outputs/<run_name>/logs/checkpoints/last.ckpt` for [inference](#inference) 
 **Resuming** — set `resume_dir=outputs/<run_name>` and `ckpt=last` (or a specific checkpoint path) to continue a run. The experiment config sets `resume_dir` to the same run folder automatically when using `experiment=bobsl3dt`.
 
 
-### Bibtex
+### BibTeX
 If you use our code in your research, kindly cite our work:
 ```bibtex
 @inproceedings{bensabath2026handmdm,
